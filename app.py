@@ -125,7 +125,7 @@ def main():
                 # Translate text and display translated text and audio
                 translated_text, translated_audio_path = translate_and_generate_audio(detected_text, target_lang)
                 st.markdown(f"<div class='output'>Translated Text: {translated_text}</div>", unsafe_allow_html=True)
-                st.write("**Translated Audio:**")
+                st.write("<div class='output'>Translated Audio:</div>", unsafe_allow_html=True)
                 st.audio(translated_audio_path)
 
             except Exception as e:
