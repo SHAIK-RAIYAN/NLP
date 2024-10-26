@@ -62,7 +62,7 @@ def main():
     st.markdown("""
         <style>
         body {
-            background-image: url('https://example.com/background.jpg'); /* Replace with your background image URL */
+            background-image: url('https://github.com/SHAIK-RAIYAN/NLP/blob/main/pexels-eberhardgross-691668.jpg'); /* Replace with your background image URL */
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
