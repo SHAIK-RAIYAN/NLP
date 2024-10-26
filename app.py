@@ -65,26 +65,32 @@ def main():
 
     target_lang = st.selectbox("Select a target language:", options=list(LANGUAGES.keys()), format_func=lambda x: LANGUAGES[x])
     
-    st.write("### Choose Input Method:")
-    input_method = st.radio("Select an input method", ("Upload an Audio File", "Simulated Real-Time Translation"))
+    st.write("### Choose an Input Method")
 
-    if input_method == "Upload an Audio File":
-        audio_file = st.file_uploader("Upload an audio file (wav or mp3)", type=["wav", "mp3"])
-        
-        if audio_file is not None:
-            with open("uploaded_audio.wav", "wb") as f:
-                f.write(audio_file.read())
+    # Define columns for button layout
+    col1, col2 = st.columns(2)
 
-            st.write("Detecting emotion...")
-            predict_emotion("uploaded_audio.wav")
-            st.write("Translating recognized text...")
-            recognize_and_translate("uploaded_audio.wav", target_lang)
+    # "Real-Time Translation" button (currently only works locally)
+    with col1:
+        if st.button("Real-Time Translation"):
+            st.write("Real-time translation requires local microphone input, which is not supported on Streamlit Cloud.")
+            st.write("You can run this app locally to use real-time translation.")
 
-            os.remove("uploaded_audio.wav")  # Clean up after processing
+    # "Upload an Audio File" button
+    with col2:
+        if st.button("Upload an Audio File"):
+            audio_file = st.file_uploader("Upload an audio file (wav or mp3)", type=["wav", "mp3"])
+            
+            if audio_file is not None:
+                with open("uploaded_audio.wav", "wb") as f:
+                    f.write(audio_file.read())
 
-    elif input_method == "Simulated Real-Time Translation":
-        st.write("Real-time translation requires local microphone input, which is not supported on Streamlit Cloud.")
-        st.write("You can run this app locally to use real-time translation.")
+                st.write("Detecting emotion...")
+                predict_emotion("uploaded_audio.wav")
+                st.write("Translating recognized text...")
+                recognize_and_translate("uploaded_audio.wav", target_lang)
+
+                os.remove("uploaded_audio.wav")  # Clean up after processing
 
 if __name__ == "__main__":
     main()
