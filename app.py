@@ -58,28 +58,39 @@ def recognize_speech_from_file(file_path):
 
 # Streamlit app
 def main():
+    # Add custom CSS styling
     st.markdown("""
         <style>
-            body {
-                background-color: #f0f0f5;
-                color: #333;
-            }
-            .title {
-                font-size: 2.5em;
-                text-align: center;
-                margin-bottom: 20px;
-            }
-            .output {
-                font-size: 1.5em;
-                color: #4CAF50;
-                font-weight: bold;
-                margin: 20px 0;
-            }
-            .button {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 20px;
-            }
+        .title {
+            text-align: center;
+            font-size: 40px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .header {
+            text-align: center;
+            font-size: 25px;
+            color: #333;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
         </style>
     """, unsafe_allow_html=True)
 
@@ -94,14 +105,14 @@ def main():
 
     # "Real-Time Translation" button (currently only works locally)
     with col1:
-        if st.button("Real-Time Translation"):
+        if st.button("Real-Time Translation", key="real_time_translation", help="This requires microphone input, not supported on Streamlit Cloud"):
             st.write("Real-time translation requires local microphone input, which is not supported on Streamlit Cloud.")
             st.write("You can run this app locally to use real-time translation.")
 
     # "Upload an Audio File" button
     with col2:
         audio_file = st.file_uploader("Upload an audio file (wav or mp3)", type=["wav", "mp3"])
-        
+
         if audio_file is not None:
             # Save the uploaded file temporarily
             with open("uploaded_audio.wav", "wb") as f:
@@ -110,15 +121,15 @@ def main():
             try:
                 # Recognize and display text
                 detected_text = recognize_speech_from_file("uploaded_audio.wav")
-                st.markdown(f"<div class='output'>Detected Text: {detected_text}</div>", unsafe_allow_html=True)
+                st.write("**Detected Text:**", detected_text)
 
                 # Predict and display emotion
                 emotion = predict_emotion("uploaded_audio.wav")
-                st.markdown(f"<div class='output'>Detected Emotion: {emotion}</div>", unsafe_allow_html=True)
+                st.write("**Detected Emotion:**", emotion)
 
                 # Translate text and display translated text and audio
                 translated_text, translated_audio_path = translate_and_generate_audio(detected_text, target_lang)
-                st.markdown(f"<div class='output'>Translated Text: {translated_text}</div>", unsafe_allow_html=True)
+                st.write("**Translated Text:**", translated_text)
                 st.write("**Translated Audio:**")
                 st.audio(translated_audio_path)
 
