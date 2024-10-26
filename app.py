@@ -12,23 +12,38 @@ import os
 st.markdown(
     """
     <style>
-    /* Page background color */
+    /* Full-page background image */
     body {
-        background-color: #f5f5f5;
+        background-image: url('https://images.unsplash.com/photo-1511974035430-5de47d3b95da');
+        background-size: cover;
+        background-attachment: fixed;
+        color: white;  /* Default text color */
     }
     
+    /* Container for blurring and border */
+    .container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: rgba(0, 0, 0, 0.7);  /* Dark overlay with transparency */
+        padding: 20px;
+        border-radius: 10px;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);  /* Background blur */
+    }
+
     /* Title styling */
     .title {
         font-size: 2.5em;
         font-weight: bold;
-        color: #3a3a3a;
+        color: white;
         text-align: center;
         padding: 0.5em 0;
     }
     
     /* Button styling */
     .stButton>button {
-        background-color: #4CAF50;
+        background-color: #007ACC;
         color: white;
         font-size: 16px;
         font-weight: bold;
@@ -38,13 +53,13 @@ st.markdown(
         margin-top: 10px;
     }
     .stButton>button:hover {
-        background-color: #45a049;
+        background-color: #005B99;
         color: #fff;
     }
     
     /* Dropdown styling */
     .stSelectbox {
-        color: #3a3a3a;
+        color: white;
         font-size: 1.1em;
         font-weight: 500;
         padding: 10px 0;
@@ -52,9 +67,10 @@ st.markdown(
     
     /* Text styling */
     .section-text {
-        color: #333;
+        color: white;
         font-size: 1.2em;
         font-weight: 500;
+        margin-top: 10px;
     }
     </style>
     """,
@@ -111,7 +127,7 @@ def recognize_speech_from_file(file_path):
 
 # Streamlit app
 def main():
-    st.markdown("<div class='title'>Audio Translation and Emotion Detection System</div>", unsafe_allow_html=True)
+    st.markdown("<div class='container'><div class='title'>Audio Translation and Emotion Detection System</div>", unsafe_allow_html=True)
 
     target_lang = st.selectbox("Select a target language:", options=list(LANGUAGES.keys()), format_func=lambda x: LANGUAGES[x])
     
@@ -157,6 +173,8 @@ def main():
                 # Clean up uploaded audio after processing
                 if os.path.exists("uploaded_audio.wav"):
                     os.remove("uploaded_audio.wav")
+
+    st.markdown("</div>", unsafe_allow_html=True)  # Close the container div
 
 if __name__ == "__main__":
     main()
