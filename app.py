@@ -33,20 +33,18 @@ def predict_emotion(audio_path):
     mfcc = extract_mfcc(audio_path)
     prediction = emotion_model.predict(mfcc)
     emotion = emotion_labels[np.argmax(prediction)]
-    st.write(f"Detected Emotion: {emotion}")
     return emotion
 
 # Function to translate text and generate audio
 def translate_and_generate_audio(text, target_lang):
     translated_text = translator.translate(text, dest=target_lang).text
-    st.write(f"Translated Text: {translated_text}")
     tts = gTTS(text=translated_text, lang=target_lang)
     audio_path = "translated_audio.mp3"
     tts.save(audio_path)
-    st.audio(audio_path)
+    return translated_text, audio_path
 
 # Function to recognize speech from an audio file
-def recognize_and_translate(file_path, target_lang):
+def recognize_speech_from_file(file_path):
     audio = AudioSegment.from_file(file_path).set_channels(1)
     temp_wav = "temp_audio.wav"
     audio.export(temp_wav, format="wav")
@@ -54,10 +52,9 @@ def recognize_and_translate(file_path, target_lang):
     with sr.AudioFile(temp_wav) as source:
         audio_data = recognizer.record(source)
         text = recognizer.recognize_google(audio_data)
-        st.write(f"Recognized Text: {text}")
-        translate_and_generate_audio(text, target_lang)
-
+    
     os.remove(temp_wav)  # Clean up temporary file
+    return text
 
 # Streamlit app
 def main():
@@ -85,12 +82,23 @@ def main():
                 with open("uploaded_audio.wav", "wb") as f:
                     f.write(audio_file.read())
 
-                st.write("Detecting emotion...")
-                predict_emotion("uploaded_audio.wav")
-                st.write("Translating recognized text...")
-                recognize_and_translate("uploaded_audio.wav", target_lang)
+                # Recognize and display text
+                detected_text = recognize_speech_from_file("uploaded_audio.wav")
+                st.write("**Detected Text:**", detected_text)
 
-                os.remove("uploaded_audio.wav")  # Clean up after processing
+                # Predict and display emotion
+                emotion = predict_emotion("uploaded_audio.wav")
+                st.write("**Detected Emotion:**", emotion)
+
+                # Translate text and display translated text and audio
+                translated_text, translated_audio_path = translate_and_generate_audio(detected_text, target_lang)
+                st.write("**Translated Text:**", translated_text)
+                st.write("**Translated Audio:**")
+                st.audio(translated_audio_path)
+
+                # Clean up uploaded audio after processing
+                os.remove("uploaded_audio.wav")
+                os.remove(translated_audio_path)
 
 if __name__ == "__main__":
     main()
