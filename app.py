@@ -61,27 +61,6 @@ def main():
     # Add custom CSS styling
     st.markdown("""
         <style>
-        body {
-            background-image: url('https://github.com/SHAIK-RAIYAN/NLP/blob/main/pexels-eberhardgross-691668.jpg'); /* Replace with your background image URL */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-            height: 100vh;
-            margin: 0;
-            border: 5px solid #4CAF50; /* Border for the entire content */
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            margin: auto;
-            max-width: 800px;
-        }
         .title {
             text-align: center;
             font-size: 40px;
@@ -106,10 +85,15 @@ def main():
             border: none;
             border-radius: 5px;
         }
+        .container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
         </style>
     """, unsafe_allow_html=True)
 
-    st.markdown("<div class='container'>", unsafe_allow_html=True)
     st.markdown("<h1 class='title'>Audio Translation and Emotion Detection System</h1>", unsafe_allow_html=True)
 
     target_lang = st.selectbox("Select a target language:", options=list(LANGUAGES.keys()), format_func=lambda x: LANGUAGES[x])
@@ -156,8 +140,6 @@ def main():
                 # Clean up uploaded audio after processing
                 if os.path.exists("uploaded_audio.wav"):
                     os.remove("uploaded_audio.wav")
-
-    st.markdown("</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
