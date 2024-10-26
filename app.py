@@ -127,11 +127,17 @@ def recognize_speech_from_file(file_path):
 
 # Streamlit app
 def main():
-    st.markdown("<div class='outer-container'><div class='title'>Audio Translation and Emotion Detection System</div>", unsafe_allow_html=True)
+    # Open the outer container div
+    st.markdown("<div class='outer-container'>", unsafe_allow_html=True)
 
+    # Display title
+    st.markdown("<div class='title'>Audio Translation and Emotion Detection System</div>", unsafe_allow_html=True)
+
+    # Language selection
     target_lang = st.selectbox("Select a target language:", options=list(LANGUAGES.keys()), format_func=lambda x: LANGUAGES[x])
     
-    st.write("<div class='section-text'>### Choose an Input Method</div>", unsafe_allow_html=True)
+    # Input method section
+    st.markdown("<div class='section-text'>### Choose an Input Method</div>", unsafe_allow_html=True)
 
     # Define columns for button layout
     col1, col2 = st.columns(2)
@@ -174,7 +180,8 @@ def main():
                 if os.path.exists("uploaded_audio.wav"):
                     os.remove("uploaded_audio.wav")
 
-    st.markdown("</div>", unsafe_allow_html=True)  # Close the outer container div
+    # Close the outer container div
+    st.markdown("</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
