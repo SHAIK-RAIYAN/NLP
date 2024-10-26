@@ -10,7 +10,7 @@ from keras.models import load_model
 from io import BytesIO
 
 # Load the emotion recognition model
-emotion_model = load_model('/content/drive/MyDrive/emotion_model.h5')
+emotion_model = load_model('emotion_model.h5')
 emotion_labels = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
 
 recognizer = sr.Recognizer()
