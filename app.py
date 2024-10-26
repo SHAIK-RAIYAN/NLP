@@ -61,24 +61,30 @@ def main():
     st.markdown("""
         <style>
             body {
-                background-color: #f0f0f5;
-                color: #333;
+                background-color: #2e2e2e;
+                color: white;
+                font-family: 'Arial', sans-serif;
             }
             .title {
                 font-size: 2.5em;
                 text-align: center;
                 margin-bottom: 20px;
+                color: #f0a500; /* Color for the title */
             }
             .output {
                 font-size: 1.5em;
-                color: #4CAF50;
+                color: white;
                 font-weight: bold;
                 margin: 20px 0;
+                text-align: center;
             }
             .button {
                 display: flex;
                 justify-content: center;
                 margin-bottom: 20px;
+            }
+            .center {
+                text-align: center;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -92,7 +98,7 @@ def main():
     # Define columns for button layout
     col1, col2 = st.columns(2)
 
-    # "Real-Time Translation" button (currently only works locally)
+    # "Real-Time Translation" button
     with col1:
         if st.button("Real-Time Translation"):
             st.write("Real-time translation requires local microphone input, which is not supported on Streamlit Cloud.")
