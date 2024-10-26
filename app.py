@@ -14,7 +14,7 @@ st.markdown(
     <style>
     /* Full-page background image */
     body {
-        background-image: url('https://images.unsplash.com/photo-1511974035430-5de47d3b95da');
+        background-image: url('https://github.com/SHAIK-RAIYAN/NLP/blob/main/pexels-eberhardgross-691668.jpg');
         background-size: cover;
         background-attachment: fixed;
         color: white;  /* Default text color */
