@@ -7,7 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1oqYfixdqG4Qq_Kk8dj-YUtjQNAfV1PkA
 """
 
-!pip install SpeechRecognition googletrans==4.0.0-rc1 gtts pydub streamlit
 
 import numpy as np
 import librosa
