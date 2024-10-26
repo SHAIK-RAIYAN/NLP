@@ -20,16 +20,16 @@ st.markdown(
         color: white;  /* Default text color */
     }
     
-    /* Container for blurring and border */
-    .container {
-        max-width: 700px;
+    /* Outer container with border and blur */
+    .outer-container {
+        max-width: 800px;
         margin: 0 auto;
-        background: rgba(0, 0, 0, 0.7);  /* Dark overlay with transparency */
         padding: 20px;
         border-radius: 10px;
         border: 2px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         backdrop-filter: blur(10px);  /* Background blur */
+        background: rgba(0, 0, 0, 0.6);  /* Dark overlay with transparency */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
     /* Title styling */
@@ -127,7 +127,7 @@ def recognize_speech_from_file(file_path):
 
 # Streamlit app
 def main():
-    st.markdown("<div class='container'><div class='title'>Audio Translation and Emotion Detection System</div>", unsafe_allow_html=True)
+    st.markdown("<div class='outer-container'><div class='title'>Audio Translation and Emotion Detection System</div>", unsafe_allow_html=True)
 
     target_lang = st.selectbox("Select a target language:", options=list(LANGUAGES.keys()), format_func=lambda x: LANGUAGES[x])
     
@@ -174,7 +174,7 @@ def main():
                 if os.path.exists("uploaded_audio.wav"):
                     os.remove("uploaded_audio.wav")
 
-    st.markdown("</div>", unsafe_allow_html=True)  # Close the container div
+    st.markdown("</div>", unsafe_allow_html=True)  # Close the outer container div
 
 if __name__ == "__main__":
     main()
