@@ -12,38 +12,23 @@ import os
 st.markdown(
     """
     <style>
-    /* Full-page background image */
+    /* Page background color */
     body {
-        background-image: url('https://images.unsplash.com/photo-1511974035430-5de47d3b95da');
-        background-size: cover;
-        background-attachment: fixed;
-        color: white;  /* Default text color */
+        background-color: #f5f5f5;
     }
     
-    /* Outer container with border and blur */
-    .outer-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        border-radius: 10px;
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        backdrop-filter: blur(10px);  /* Background blur */
-        background: rgba(0, 0, 0, 0.6);  /* Dark overlay with transparency */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
     /* Title styling */
     .title {
         font-size: 2.5em;
         font-weight: bold;
-        color: white;
+        color: #3a3a3a;
         text-align: center;
         padding: 0.5em 0;
     }
     
     /* Button styling */
     .stButton>button {
-        background-color: #007ACC;
+        background-color: #4CAF50;
         color: white;
         font-size: 16px;
         font-weight: bold;
@@ -53,13 +38,13 @@ st.markdown(
         margin-top: 10px;
     }
     .stButton>button:hover {
-        background-color: #005B99;
+        background-color: #45a049;
         color: #fff;
     }
     
     /* Dropdown styling */
     .stSelectbox {
-        color: white;
+        color: #3a3a3a;
         font-size: 1.1em;
         font-weight: 500;
         padding: 10px 0;
@@ -67,10 +52,9 @@ st.markdown(
     
     /* Text styling */
     .section-text {
-        color: white;
+        color: #333;
         font-size: 1.2em;
         font-weight: 500;
-        margin-top: 10px;
     }
     </style>
     """,
@@ -127,17 +111,11 @@ def recognize_speech_from_file(file_path):
 
 # Streamlit app
 def main():
-    # Open the outer container div
-    st.markdown("<div class='outer-container'>", unsafe_allow_html=True)
-
-    # Display title
     st.markdown("<div class='title'>Audio Translation and Emotion Detection System</div>", unsafe_allow_html=True)
 
-    # Language selection
     target_lang = st.selectbox("Select a target language:", options=list(LANGUAGES.keys()), format_func=lambda x: LANGUAGES[x])
     
-    # Input method section
-    st.markdown("<div class='section-text'>### Choose an Input Method</div>", unsafe_allow_html=True)
+    st.write("<div class='section-text'>### Choose an Input Method</div>", unsafe_allow_html=True)
 
     # Define columns for button layout
     col1, col2 = st.columns(2)
@@ -179,9 +157,6 @@ def main():
                 # Clean up uploaded audio after processing
                 if os.path.exists("uploaded_audio.wav"):
                     os.remove("uploaded_audio.wav")
-
-    # Close the outer container div
-    st.markdown("</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
