@@ -1,13 +1,11 @@
 import streamlit as st
 import numpy as np
 import librosa
-import os
 import speech_recognition as sr
 from googletrans import Translator
 from gtts import gTTS
 from pydub import AudioSegment
 from keras.models import load_model
-from io import BytesIO
 
 # Load the emotion recognition model
 emotion_model = load_model('emotion_model.h5')
@@ -51,27 +49,14 @@ def translate_from_mp3(file_path, target_lang):
         st.write(f"Recognized from MP3: {text}")
         translate_and_generate_audio(text, target_lang)
 
-def recognize_and_translate(target_lang):
-    with sr.Microphone() as source:
-        recognizer.adjust_for_ambient_noise(source)
-        audio = recognizer.listen(source, timeout=5, phrase_time_limit=5)
-        text = recognizer.recognize_google(audio)
-        st.write(f"Recognized: {text}")
-        translate_and_generate_audio(text, target_lang)
-
 def main():
-    st.title("Real-time and MP3 Translation System")
+    st.title("MP3 Translation and Emotion Detection System")
 
     target_lang = st.selectbox("Select a target language:", options=list(LANGUAGES.keys()), format_func=lambda x: LANGUAGES[x])
 
     st.write("### Choose Input Method:")
-    real_time_button = st.button("Real-time Voice Translation")
     mp3_file = st.file_uploader("Upload MP3 file for translation", type="mp3")
     emotion_file = st.file_uploader("Upload Audio file for Emotion Detection", type=["wav", "mp3"])
-
-    if real_time_button:
-        st.write("Listening for real-time translation...")
-        recognize_and_translate(target_lang)
 
     if mp3_file is not None:
         st.write("Translating from uploaded MP3 file...")
