@@ -75,13 +75,14 @@ def main():
 
     # "Upload an Audio File" button
     with col2:
-        if st.button("Upload an Audio File"):
-            audio_file = st.file_uploader("Upload an audio file (wav or mp3)", type=["wav", "mp3"])
-            
-            if audio_file is not None:
-                with open("uploaded_audio.wav", "wb") as f:
-                    f.write(audio_file.read())
+        audio_file = st.file_uploader("Upload an audio file (wav or mp3)", type=["wav", "mp3"])
+        
+        if audio_file is not None:
+            # Save the uploaded file temporarily
+            with open("uploaded_audio.wav", "wb") as f:
+                f.write(audio_file.read())
 
+            try:
                 # Recognize and display text
                 detected_text = recognize_speech_from_file("uploaded_audio.wav")
                 st.write("**Detected Text:**", detected_text)
@@ -96,9 +97,13 @@ def main():
                 st.write("**Translated Audio:**")
                 st.audio(translated_audio_path)
 
+            except Exception as e:
+                st.error(f"An error occurred: {e}")
+
+            finally:
                 # Clean up uploaded audio after processing
-                os.remove("uploaded_audio.wav")
-                os.remove(translated_audio_path)
+                if os.path.exists("uploaded_audio.wav"):
+                    os.remove("uploaded_audio.wav")
 
 if __name__ == "__main__":
     main()
