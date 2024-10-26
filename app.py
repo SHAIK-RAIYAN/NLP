@@ -61,30 +61,24 @@ def main():
     st.markdown("""
         <style>
             body {
-                background-color: #2e2e2e;
-                color: white;
-                font-family: 'Arial', sans-serif;
+                background-color: #f0f0f5;
+                color: #333;
             }
             .title {
                 font-size: 2.5em;
                 text-align: center;
                 margin-bottom: 20px;
-                color: #f0a500; /* Color for the title */
             }
             .output {
                 font-size: 1.5em;
-                color: white;
+                color: #4CAF50;
                 font-weight: bold;
                 margin: 20px 0;
-                text-align: center;
             }
             .button {
                 display: flex;
                 justify-content: center;
                 margin-bottom: 20px;
-            }
-            .center {
-                text-align: center;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -98,7 +92,7 @@ def main():
     # Define columns for button layout
     col1, col2 = st.columns(2)
 
-    # "Real-Time Translation" button
+    # "Real-Time Translation" button (currently only works locally)
     with col1:
         if st.button("Real-Time Translation"):
             st.write("Real-time translation requires local microphone input, which is not supported on Streamlit Cloud.")
@@ -125,7 +119,7 @@ def main():
                 # Translate text and display translated text and audio
                 translated_text, translated_audio_path = translate_and_generate_audio(detected_text, target_lang)
                 st.markdown(f"<div class='output'>Translated Text: {translated_text}</div>", unsafe_allow_html=True)
-                st.write("<div class='output'>Translated Audio:</div>", unsafe_allow_html=True)
+                st.write("**Translated Audio:**")
                 st.audio(translated_audio_path)
 
             except Exception as e:
