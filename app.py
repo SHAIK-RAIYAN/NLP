@@ -58,7 +58,32 @@ def recognize_speech_from_file(file_path):
 
 # Streamlit app
 def main():
-    st.title("Audio Translation and Emotion Detection System")
+    st.markdown("""
+        <style>
+            body {
+                background-color: #f0f0f5;
+                color: #333;
+            }
+            .title {
+                font-size: 2.5em;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .output {
+                font-size: 1.5em;
+                color: #4CAF50;
+                font-weight: bold;
+                margin: 20px 0;
+            }
+            .button {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.markdown("<h1 class='title'>Audio Translation and Emotion Detection System</h1>", unsafe_allow_html=True)
 
     target_lang = st.selectbox("Select a target language:", options=list(LANGUAGES.keys()), format_func=lambda x: LANGUAGES[x])
     
@@ -85,15 +110,15 @@ def main():
             try:
                 # Recognize and display text
                 detected_text = recognize_speech_from_file("uploaded_audio.wav")
-                st.write("**Detected Text:**", detected_text)
+                st.markdown(f"<div class='output'>Detected Text: {detected_text}</div>", unsafe_allow_html=True)
 
                 # Predict and display emotion
                 emotion = predict_emotion("uploaded_audio.wav")
-                st.write("**Detected Emotion:**", emotion)
+                st.markdown(f"<div class='output'>Detected Emotion: {emotion}</div>", unsafe_allow_html=True)
 
                 # Translate text and display translated text and audio
                 translated_text, translated_audio_path = translate_and_generate_audio(detected_text, target_lang)
-                st.write("**Translated Text:**", translated_text)
+                st.markdown(f"<div class='output'>Translated Text: {translated_text}</div>", unsafe_allow_html=True)
                 st.write("**Translated Audio:**")
                 st.audio(translated_audio_path)
 
