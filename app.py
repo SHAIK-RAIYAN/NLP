@@ -8,6 +8,59 @@ from pydub import AudioSegment
 from keras.models import load_model
 import os
 
+# Custom CSS styling
+st.markdown(
+    """
+    <style>
+    /* Page background color */
+    body {
+        background-color: #f5f5f5;
+    }
+    
+    /* Title styling */
+    .title {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #3a3a3a;
+        text-align: center;
+        padding: 0.5em 0;
+    }
+    
+    /* Button styling */
+    .stButton>button {
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 8px 16px;
+        border-radius: 8px;
+        transition: 0.3s;
+        margin-top: 10px;
+    }
+    .stButton>button:hover {
+        background-color: #45a049;
+        color: #fff;
+    }
+    
+    /* Dropdown styling */
+    .stSelectbox {
+        color: #3a3a3a;
+        font-size: 1.1em;
+        font-weight: 500;
+        padding: 10px 0;
+    }
+    
+    /* Text styling */
+    .section-text {
+        color: #333;
+        font-size: 1.2em;
+        font-weight: 500;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Load the emotion recognition model
 emotion_model = load_model('emotion_model.h5')
 emotion_labels = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
@@ -58,11 +111,11 @@ def recognize_speech_from_file(file_path):
 
 # Streamlit app
 def main():
-    st.title("Audio Translation and Emotion Detection System")
+    st.markdown("<div class='title'>Audio Translation and Emotion Detection System</div>", unsafe_allow_html=True)
 
     target_lang = st.selectbox("Select a target language:", options=list(LANGUAGES.keys()), format_func=lambda x: LANGUAGES[x])
     
-    st.write("### Choose an Input Method")
+    st.write("<div class='section-text'>### Choose an Input Method</div>", unsafe_allow_html=True)
 
     # Define columns for button layout
     col1, col2 = st.columns(2)
