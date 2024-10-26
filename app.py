@@ -62,19 +62,22 @@ def main():
     st.markdown("""
         <style>
         body {
-            background-image: url('https://github.com/SHAIK-RAIYAN/NLP/blob/main/pexels-eberhardgross-691668.jpg'); /* Replace with your background image URL */
+            background-image: url('https://example.com/background.jpg'); /* Replace with your background image URL */
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: center;
             height: 100vh;
+            margin: 0;
+            border: 5px solid #4CAF50; /* Border for the entire content */
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .container {
             background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
-            border: 2px solid #4CAF50;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
             margin: auto;
             max-width: 800px;
